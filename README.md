@@ -15,8 +15,8 @@ At first you should make cross-build setting to mruby/build_config.rb. Please ad
 	 MRuby::CrossBuild.new("chipKitMax32") do |conf|
 	 	toolchain :gcc
 
-	 	conf.gem :git => "https://github.com/kyab/mruby-arduino.git", branch => "master"
-
+	 	conf.gem :git => "https://github.com/kyab/mruby-arduino.git", :branch => "master"
+	 	
 	 	MPIDE_PATH = "/Applications/mpide.app"
 
 	 	conf.cc do |cc|
