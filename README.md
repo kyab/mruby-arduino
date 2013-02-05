@@ -64,6 +64,8 @@ Sample Code
             @servo.write(30)
         end
     end
+
+    ArduinoSample.new.run
              
 
 Implemented APIs
