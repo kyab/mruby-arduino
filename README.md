@@ -42,6 +42,7 @@ Then, type "make" on mruby top dir.
 Notice you don't have to download/clone mruby-arduino from github. Mrbgem automatically get codes from this github repositry.
 
 Sample Code
+-------------------------------------------
     
     class ArduinoSample
         include Arduino
