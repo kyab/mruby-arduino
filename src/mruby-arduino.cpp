@@ -115,7 +115,7 @@ mrb_value mrb_arduino_map(mrb_state *mrb, mrb_value self){
 
 extern "C"
 void
-mrb_c_mruby_arduino_gem_init(mrb_state* mrb) {
+mrb_mruby_arduino_gem_init(mrb_state* mrb) {
 
 
   RClass *serialClass = mrb_define_class(mrb, "Serial", mrb->object_class);
@@ -146,6 +146,6 @@ mrb_c_mruby_arduino_gem_init(mrb_state* mrb) {
 
 extern "C"
 void
-mrb_c_mruby_arduino_gem_final(mrb_state* mrb) {
+mrb_mruby_arduino_gem_final(mrb_state* mrb) {
 
 }
