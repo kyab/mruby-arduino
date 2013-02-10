@@ -11,7 +11,7 @@ http://www.digilentinc.com/Products/Detail.cfm?NavPath=2,892,894&Prod=CHIPKIT-MA
 
 How to use
 -------------------------------------
-At first you should make cross-build setting to mruby/build_config.rb. Please add following lines to mruby/build_config.rb.
+At first you should make cross-build setting for your board. For chipKIT Max32, please add following lines to mruby/build_config.rb.
 
 	 MRuby::CrossBuild.new("chipKitMax32") do |conf|
 	 	toolchain :gcc
