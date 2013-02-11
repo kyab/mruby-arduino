@@ -1,7 +1,7 @@
-module Arduino
-	module_function :constrain
 
-	def constrain(x ,a ,b)
+module Arduino
+	
+	def Arduino.constrain(x ,a ,b)
 		if x < a
 			x = a
 		end
@@ -11,4 +11,5 @@ module Arduino
 		end
 		x
 	end
+	
 end

@@ -39,8 +39,6 @@ struct mrb_data_type mrb_servo_type = {"Servo", mrb_servo_free};
 
 mrb_value mrb_servo_initialize(mrb_state *mrb, mrb_value self){
   Servo *newServo = new Servo();
-  Serial.println("newServo");
-  Serial.println((int)newServo);
   DATA_PTR(self) = newServo;  
   DATA_TYPE(self) = &mrb_servo_type;  
   return self;
@@ -217,11 +215,12 @@ extern "C"
 void
 mrb_mruby_arduino_gem_init(mrb_state* mrb) {
 
-
   RClass *serialClass = mrb_define_class(mrb, "Serial", mrb->object_class);
   mrb_define_class_method(mrb, serialClass, "available", mrb_serial_available, ARGS_NONE());
+  
   mrb_define_class_method(mrb, serialClass,"begin",mrb_serial_begin, ARGS_REQ(1));
   mrb_define_class_method(mrb, serialClass,"println", mrb_serial_println, ARGS_REQ(1));
+
 
   RClass *servoClass = mrb_define_class(mrb, "Servo", mrb->object_class);
   MRB_SET_INSTANCE_TT(servoClass, MRB_TT_DATA);
@@ -274,6 +273,7 @@ mrb_mruby_arduino_gem_init(mrb_state* mrb) {
 
   mrb_define_const(mrb, arduinoModule, "MSBFIRST", mrb_fixnum_value(MSBFIRST));
   mrb_define_const(mrb, arduinoModule, "LSBFIRST", mrb_fixnum_value(LSBFIRST));
+  
 }
 
 extern "C"
