@@ -217,10 +217,8 @@ mrb_mruby_arduino_gem_init(mrb_state* mrb) {
 
   RClass *serialClass = mrb_define_class(mrb, "Serial", mrb->object_class);
   mrb_define_class_method(mrb, serialClass, "available", mrb_serial_available, ARGS_NONE());
-  
   mrb_define_class_method(mrb, serialClass,"begin",mrb_serial_begin, ARGS_REQ(1));
   mrb_define_class_method(mrb, serialClass,"println", mrb_serial_println, ARGS_REQ(1));
-
 
   RClass *servoClass = mrb_define_class(mrb, "Servo", mrb->object_class);
   MRB_SET_INSTANCE_TT(servoClass, MRB_TT_DATA);
@@ -249,7 +247,6 @@ mrb_mruby_arduino_gem_init(mrb_state* mrb) {
   mrb_define_module_function(mrb, arduinoModule, "random", mrb_arduino_random, ARGS_REQ(1) | ARGS_OPT(1));
   mrb_define_module_function(mrb, arduinoModule, "interrupts", mrb_arduino_interrupts, ARGS_NONE());
   mrb_define_module_function(mrb, arduinoModule, "noInterrupts", mrb_arduino_noInterrupts, ARGS_NONE());
-
 
   mrb_define_const(mrb, arduinoModule, "HIGH", mrb_fixnum_value(HIGH));
   mrb_define_const(mrb, arduinoModule, "LOW", mrb_fixnum_value(LOW));
