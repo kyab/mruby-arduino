@@ -61,6 +61,12 @@ mrb_value mrb_servo_write(mrb_state *mrb, mrb_value self){
   return mrb_nil_value();
 }
 
+mrb_value mrb_servo_detach(mrb_state *mrb, mrb_value self){
+  Servo *servo = (Servo *)mrb_get_datatype(mrb, self, &mrb_servo_type);
+  servo->detach();
+  return mrb_nil_value();
+}
+
 
 mrb_value mrb_arduino_pinMode(mrb_state *mrb, mrb_value self){
   mrb_int pin, mode;
@@ -217,14 +223,15 @@ mrb_mruby_arduino_gem_init(mrb_state* mrb) {
 
   RClass *serialClass = mrb_define_class(mrb, "Serial", mrb->object_class);
   mrb_define_class_method(mrb, serialClass, "available", mrb_serial_available, ARGS_NONE());
-  mrb_define_class_method(mrb, serialClass,"begin",mrb_serial_begin, ARGS_REQ(1));
-  mrb_define_class_method(mrb, serialClass,"println", mrb_serial_println, ARGS_REQ(1));
+  mrb_define_class_method(mrb, serialClass, "begin",mrb_serial_begin, ARGS_REQ(1));
+  mrb_define_class_method(mrb, serialClass, "println", mrb_serial_println, ARGS_REQ(1));
 
   RClass *servoClass = mrb_define_class(mrb, "Servo", mrb->object_class);
   MRB_SET_INSTANCE_TT(servoClass, MRB_TT_DATA);
-  mrb_define_method(mrb, servoClass,"initialize", mrb_servo_initialize, ARGS_NONE());
-  mrb_define_method(mrb, servoClass,"attach", mrb_servo_attach, ARGS_REQ(1));
-  mrb_define_method(mrb, servoClass,"write", mrb_servo_write, ARGS_REQ(1));
+  mrb_define_method(mrb, servoClass, "initialize", mrb_servo_initialize, ARGS_NONE());
+  mrb_define_method(mrb, servoClass, "attach", mrb_servo_attach, ARGS_REQ(1));
+  mrb_define_method(mrb, servoClass, "write", mrb_servo_write, ARGS_REQ(1));
+  mrb_define_method(mrb, servoClass, "detach", mrb_servo_detach, ARGS_NONE());
   
   RClass *arduinoModule = mrb_define_module(mrb, "Arduino");
   mrb_define_module_function(mrb, arduinoModule, "pinMode", mrb_arduino_pinMode, ARGS_REQ(2));
