@@ -32,16 +32,16 @@ pic32.recipe.c.combine.pattern={0}{1}::{2}::{3}{4}::-o::{5}{6}.elf::{7}::{8}::-L
 ...
 pic32.compiler.cpp.flags=-O2::-c::-mno-smart-io::-w::-fno-exceptions::-ffunction-sections::-fdata-sections::-g::-mdebugger::-Wcast-align::-fno-short-double::-I/path/to/mruby/include
 
-Sample Sketch
-------------------------------------------
+
+
+##Sample Sketch
 ```
 
 ```
 
 
 
-Sample Code
--------------------------------------------
+##Sample Code
     
     class ArduinoSample
         include Arduino
