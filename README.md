@@ -31,7 +31,7 @@ Next is setting for MPIDE (or Arduino IDE). Open Mpide.app//Contents/Resources/J
 pic32.recipe.c.combine.pattern={0}{1}::{2}::{3}{4}::-o::{5}{6}.elf::{7}::{8}::-L/path/to/mruby/build/chipKitMax32/lib::-lmruby::-L{9}::-lm::-T::{10}/{11}
 ...
 pic32.compiler.cpp.flags=-O2::-c::-mno-smart-io::-w::-fno-exceptions::-ffunction-sections::-fdata-sections::-g::-mdebugger::-Wcast-align::-fno-short-double::-I/path/to/mruby/include
-
+```
 
 
 ##Sample Sketch
