@@ -10,9 +10,9 @@ http://www.digilentinc.com/Products/Detail.cfm?NavPath=2,892,894&Prod=CHIPKIT-MA
 
 How to use
 -------------------------------------
-At first you should make cross-build setting for your board. For chipKIT Max32, please add following lines from /path/to/[mruby](https://github.com/mruby/mruby)/examples/targets/chipKitMax32.rb to  mruby/build_config.rb.
+At first you should make cross-build setting for your board. For chipKIT Max32, please add contents of your /path/to/[mruby](https://github.com/mruby/mruby)/examples/targets/chipKitMax32.rb to  mruby/build_config.rb.
 
-Then, add below line to include mruby-arduino 
+Then, add below line to include mruby-arduino. 
 ```
 MRuby::CrossBuild.new("chipKitMax32") do |conf|
 ...
@@ -25,7 +25,7 @@ Then, type "make" in mruby top dir.
 
 Notice you don't have to download/clone mruby-arduino from github. Mrbgem automatically get codes from this github repositry.
 
-Next is setting for MPIDE (or Arduino IDE). Open Mpide.app//Contents/Resources/Java/hardware/pic32/platforms.txt and edit below lines to add header search path and library.
+Next is setting for MPIDE (or Arduino IDE). Open Mpide.app//Contents/Resources/Java/hardware/pic32/platforms.txt. Edit below lines to tell header search path and library options for mruby.
 ```
 ...
 pic32.recipe.c.combine.pattern={0}{1}::{2}::{3}{4}::-o::{5}{6}.elf::{7}::{8}::-L/path/to/mruby/build/chipKitMax32/lib::-lmruby::-L{9}::-lm::-T::{10}/{11}
@@ -33,9 +33,11 @@ pic32.recipe.c.combine.pattern={0}{1}::{2}::{3}{4}::-o::{5}{6}.elf::{7}::{8}::-L
 pic32.compiler.cpp.flags=-O2::-c::-mno-smart-io::-w::-fno-exceptions::-ffunction-sections::-fdata-sections::-g::-mdebugger::-Wcast-align::-fno-short-double::-I/path/to/mruby/include
 
 Sample Sketch
-```
-```
 ------------------------------------------
+```
+
+```
+
 
 
 Sample Code
