@@ -92,7 +92,13 @@ mrb_value mrb_arduino_digitalRead(mrb_state *mrb, mrb_value self){
 mrb_value mrb_arduino_analogReference(mrb_state *mrb, mrb_value self){
   mrb_int type;
   int n = mrb_get_args(mrb, "i", &type);
+
+#if defined(MPIDE)
   analogReference(type);
+#else
+  analogReference((eAnalogReference)type);
+#endif
+  
   return mrb_nil_value();
 }
 
@@ -109,6 +115,8 @@ mrb_value mrb_arduino_analogRead(mrb_state *mrb, mrb_value self){
   int val = analogRead(pin);
   return mrb_fixnum_value(val);
 }
+
+#if defined(MPIDE)
 
 mrb_value mrb_arduino_tone(mrb_state *mrb, mrb_value self){
   mrb_int pin, frequency, duration;
@@ -127,6 +135,7 @@ mrb_value mrb_arduino_noTone(mrb_state *mrb, mrb_value self){
   noTone(pin);
   return mrb_nil_value();
 }
+#endif
 
 mrb_value mrb_arduino_shiftOut(mrb_state *mrb, mrb_value self){
   mrb_int dataPin, clockPin, bitOrder, value;
@@ -240,8 +249,10 @@ mrb_mruby_arduino_gem_init(mrb_state* mrb) {
   mrb_define_module_function(mrb, arduinoModule, "analogReference", mrb_arduino_analogReference, ARGS_REQ(1));
   mrb_define_module_function(mrb, arduinoModule, "analogWrite", mrb_arduino_analogWrite, ARGS_REQ(2));
   mrb_define_module_function(mrb, arduinoModule, "analogRead", mrb_arduino_analogRead, ARGS_REQ(1));
+#if defined(MPIDE) 
   mrb_define_module_function(mrb, arduinoModule, "tone", mrb_arduino_tone, ARGS_REQ(2) | ARGS_OPT(1));
   mrb_define_module_function(mrb, arduinoModule, "noTone", mrb_arduino_noTone, ARGS_REQ(1));
+#endif
   mrb_define_module_function(mrb, arduinoModule, "shiftOut", mrb_arduino_shiftOut, ARGS_REQ(4));
   mrb_define_module_function(mrb, arduinoModule, "shiftIn", mrb_arduino_shiftOut, ARGS_REQ(3));
   mrb_define_module_function(mrb, arduinoModule, "pulseIn", mrb_arduino_pulseIn, ARGS_REQ(2) | ARGS_OPT(1));
@@ -264,7 +275,10 @@ mrb_mruby_arduino_gem_init(mrb_state* mrb) {
   mrb_define_const(mrb, arduinoModule, "INPUT_PULLUP", mrb_fixnum_value(INPUT_PULLUP));
 #endif
   mrb_define_const(mrb, arduinoModule, "DEFAULT", mrb_fixnum_value(DEFAULT));
+
+#ifdef INTERNAL
   mrb_define_const(mrb, arduinoModule, "INTERNAL", mrb_fixnum_value(INTERNAL));
+#endif
   mrb_define_const(mrb, arduinoModule, "EXTERNAL", mrb_fixnum_value(EXTERNAL));
   //for chipKit, below are not defined.
 #ifdef INTERNAL1V1
