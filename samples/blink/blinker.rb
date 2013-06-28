@@ -1,6 +1,6 @@
 #To (re)compile C bytecode:
 #
-#/path/to/mruby/bin/mrbc -Bblinker -obkinker.c blinker.rb
+#/path/to/mruby/bin/mrbc -Bblinker -oblinker.c blinker.rb
 #
 
 class Blinker

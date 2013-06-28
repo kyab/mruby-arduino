@@ -5,6 +5,8 @@
 #include <Arduino.h>
 #endif
 
+#include <stdio.h>
+
 #include "mruby.h"
 #include "mruby/class.h"
 #include "mruby/value.h"
@@ -21,13 +23,29 @@ mrb_value blinker_obj;
 
 extern const uint8_t blinker[];
 
+// custom allocator to check heap shortage.
+void *myallocf(mrb_state *mrb, void *p, size_t size, void *ud){
+	if (size == 0){
+		free(p);
+		return NULL;
+	}
+
+	void *ret = realloc(p, size);
+	if (!ret){
+		char str[15];
+		sprintf(str, "%u", size);
+		Serial.print("memory allocation error. size:");
+		Serial.println(str);
+	}
+}
+
 void setup(){
 
 	Serial.begin(9600);
 	Serial.println("Hello Arduino");
 
 	//Init mruby
-	mrb = mrb_open();
+	mrb = mrb_open_allocf(myallocf, NULL);
 
 	//Load Blinker bytecode
 	mrb_load_irep(mrb, blinker);
