@@ -12,16 +12,26 @@
 #include "mruby/value.h"
 #include "mruby/irep.h"
 
-//change heap size
+//for chipKIT Max32
 #ifdef MPIDE
+//enhance heap
 #define CHANGE_HEAP_SIZE(size) __asm__ volatile ("\t.globl _min_heap_size\n\t.equ _min_heap_size, " #size "\n")
 CHANGE_HEAP_SIZE(110 * 1024);
+
 #endif
+
 
 mrb_state *mrb;
 mrb_value blinker_obj;
+int ai;
 
 extern const uint8_t blinker[];
+
+void printlnSize(size_t size){
+	char str[15];
+	sprintf(str,"%u", size);
+	Serial.println(str);
+}
 
 // custom allocator to check heap shortage.
 void *myallocf(mrb_state *mrb, void *p, size_t size, void *ud){
@@ -32,10 +42,8 @@ void *myallocf(mrb_state *mrb, void *p, size_t size, void *ud){
 
 	void *ret = realloc(p, size);
 	if (!ret){
-		char str[15];
-		sprintf(str, "%u", size);
 		Serial.print("memory allocation error. size:");
-		Serial.println(str);
+		printlnSize(size);
 	}
 }
 
@@ -70,6 +78,8 @@ void setup(){
 		return;
 	}
 
+	ai = mrb_gc_arena_save(mrb);
+
 }
 
 void loop(){
@@ -79,8 +89,11 @@ void loop(){
 	//is exception occure?
 	if (mrb->exc){
 		Serial.println("failed to run!");
+		mrb->exc = 0;
 		delay(1000);
 	}
+
+	mrb_gc_arena_restore(mrb,ai);
 }
 
 

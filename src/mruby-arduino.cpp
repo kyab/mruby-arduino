@@ -1,3 +1,4 @@
+#include <new>
 	
 #include "mruby.h"
 #include "mruby/class.h"
@@ -32,13 +33,16 @@ mrb_value mrb_serial_println(mrb_state *mrb, mrb_value self){
 }
 
 void mrb_servo_free(mrb_state *mrb, void *ptr){
-  delete (Servo *)ptr;
+  Servo *servo = (Servo *)ptr;
+  servo->~Servo();
+  mrb_free(mrb, servo);
 }
 
 struct mrb_data_type mrb_servo_type = {"Servo", mrb_servo_free};
 
 mrb_value mrb_servo_initialize(mrb_state *mrb, mrb_value self){
-  Servo *newServo = new Servo();
+  void *p = mrb_malloc(mrb, sizeof(Servo));
+  Servo *newServo = new(p) Servo();
   DATA_PTR(self) = newServo;  
   DATA_TYPE(self) = &mrb_servo_type;  
   return self;
