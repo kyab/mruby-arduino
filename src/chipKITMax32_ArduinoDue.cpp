@@ -5,6 +5,10 @@
 #include "mruby/string.h"
 #include "mruby/data.h"
 
+#include "mruby-arduino.h"
+
+#ifdef MRUBY_ARDUINO_BOARD_CHIPKIT_OR_DUE
+
 #if (ARDUINO >= 100)
 	#include <Arduino.h>
 #else
@@ -232,7 +236,7 @@ mrb_value mrb_arduino_noInterrupts(mrb_state *mrb, mrb_value self){
 
 extern "C"
 void
-mrb_mruby_arduino_gem_init(mrb_state* mrb) {
+mruby_arduino_init_chipKIT_or_Due(mrb_state* mrb) {
 
   RClass *serialClass = mrb_define_class(mrb, "Serial", mrb->object_class);
   mrb_define_class_method(mrb, serialClass, "available", mrb_serial_available, ARGS_NONE());
@@ -309,8 +313,5 @@ mrb_mruby_arduino_gem_init(mrb_state* mrb) {
 #endif  
 }
 
-extern "C"
-void
-mrb_mruby_arduino_gem_final(mrb_state* mrb) {
 
-}
+#endif /*MRUBY_ARDUINO_CHIPKIT_OR_DUE*/

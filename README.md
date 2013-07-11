@@ -68,6 +68,10 @@ recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.f
 
 Please Re-launch Arduino IDE.
 
+###STM32F4Discovery
+TODO
+
+
 ##Run the sample
 Open samples/blink/blink.pde in MPIDE or Arduino IDE, then build and upload(This may take minutes).
 You will see pin 13 blinks each 1 seconds(1000 msec). Also check Serial Monitor.
