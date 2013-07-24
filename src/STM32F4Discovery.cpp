@@ -213,39 +213,14 @@ mruby_arduino_init_discoveryF4(mrb_state* mrb) {
   mrb_define_const(mrb, arduinoModule, "LOW", mrb_fixnum_value(LOW));
   mrb_define_const(mrb, arduinoModule, "INPUT", mrb_fixnum_value(INPUT));
   mrb_define_const(mrb, arduinoModule, "OUTPUT", mrb_fixnum_value(OUTPUT));
-
-#ifdef INPUT_PULLUP
+  mrb_define_const(mrb, arduinoModule, "OUTPUT_OPEN_DRAIN", mrb_fixnum_value(OUTPUT_OPEN_DRAIN));
+  mrb_define_const(mrb, arduinoModule, "INPUT_ANALOG", mrb_fixnum_value(INPUT_ANALOG));
   mrb_define_const(mrb, arduinoModule, "INPUT_PULLUP", mrb_fixnum_value(INPUT_PULLUP));
-#endif
+  mrb_define_const(mrb, arduinoModule, "INPUT_PULLDOWN", mrb_fixnum_value(INPUT_PULLDOWN));
+  mrb_define_const(mrb, arduinoModule, "INPUT_FLOATING", mrb_fixnum_value(INPUT_FLOATING));
+  mrb_define_const(mrb, arduinoModule, "PWM", mrb_fixnum_value(PWM));
+  mrb_define_const(mrb, arduinoModule, "PWM_OPEN_DRAIN", mrb_fixnum_value(PWM_OPEN_DRAIN));
 
-#ifdef DEFAULT
-  mrb_define_const(mrb, arduinoModule, "DEFAULT", mrb_fixnum_value(DEFAULT));
-#endif
-
-#ifdef INTERNAL
-  mrb_define_const(mrb, arduinoModule, "INTERNAL", mrb_fixnum_value(INTERNAL));
-#endif
-
-#ifdef EXTERNAL
-  mrb_define_const(mrb, arduinoModule, "EXTERNAL", mrb_fixnum_value(EXTERNAL));
-#endif
-
-  //for chipKit, below are not defined.
-#ifdef INTERNAL1V1
-  mrb_define_const(mrb, arduinoModule, "INTERNAL1V1", mrb_fixnum_value(INTERNAL1V1));
-#endif
-
-#ifdef INTERNAL2V56
-  mrb_define_const(mrb, arduinoModule, "INTERNAL2V56", mrb_fixnum_value(INTERNAL2V56));
-#endif
-
-#ifdef MSBFIRST
-  mrb_define_const(mrb, arduinoModule, "MSBFIRST", mrb_fixnum_value(MSBFIRST));
-#endif 
-
-#ifdef LSBFIRST
-  mrb_define_const(mrb, arduinoModule, "LSBFIRST", mrb_fixnum_value(LSBFIRST));
-#endif  
 }
 
 
