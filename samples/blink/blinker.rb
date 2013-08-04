@@ -3,6 +3,10 @@
 #/path/to/mruby/bin/mrbc -Bblinker -oblinker.c blinker.rb
 #
 
+unless Object.const_defined? :Serial
+	Serial = Serial2
+end
+
 class Blinker
 	include Arduino
 	attr_accessor :interval ,:pin
