@@ -13,26 +13,34 @@
 
 #include <Servo/Servo.h>
 
-#define Serial Serial2
+#define MRUBY_ARDUINO_DEFINE_SERIAL_METHODS(serial) \
+  mrb_value mrb_##serial##_available(mrb_state *mrb, mrb_value self){ \
+    return mrb_fixnum_value(serial.available()); \
+  } \
+ \
+  mrb_value mrb_##serial##_begin(mrb_state *mrb, mrb_value self){ \
+    mrb_int speed = 0;  \
+    int n = mrb_get_args(mrb,"i",&speed); \
+    serial.begin(speed);  \
+    return mrb_nil_value(); \
+  } \
+ \
+  mrb_value mrb_##serial##_println(mrb_state *mrb, mrb_value self){ \
+    mrb_value s;  \
+    mrb_get_args(mrb,"S", &s); \ 
+    serial.println(RSTRING_PTR(s)); \
+    return mrb_nil_value();  \
+  } \
+  \
+  mrb_value mrb_##serial##_print(mrb_state *mrb, mrb_value self){ \
+    mrb_value s;  \
+    mrb_get_args(mrb,"S", &s); \
+    serial.print(RSTRING_PTR(s)); \
+    return mrb_nil_value(); \
+  } \
 
-mrb_value mrb_serial_available(mrb_state *mrb, mrb_value self){
-  return mrb_fixnum_value(Serial.available());
-}
-
-mrb_value mrb_serial_begin(mrb_state *mrb, mrb_value self){
-  mrb_int speed = 0;
-  int n = mrb_get_args(mrb,"i",&speed);
-  Serial.begin(speed);
-  return mrb_nil_value();
-}
-
-
-mrb_value mrb_serial_println(mrb_state *mrb, mrb_value self){
-  mrb_value s;
-  mrb_get_args(mrb,"S", &s);
-  Serial.println(RSTRING_PTR(s));
-  return mrb_nil_value();
-}
+MRUBY_ARDUINO_DEFINE_SERIAL_METHODS(Serial2)
+MRUBY_ARDUINO_DEFINE_SERIAL_METHODS(Serial3)
 
 void mrb_servo_free(mrb_state *mrb, void *ptr){
   Servo *servo = (Servo *)ptr;
@@ -175,14 +183,19 @@ mrb_value mrb_arduino_noInterrupts(mrb_state *mrb, mrb_value self){
   return mrb_nil_value();
 }
 
+#define MRUBY_ARDUINO_DEFINE_SERIAL(serial) \
+  RClass * serial##Class = mrb_define_class(mrb, #serial, mrb->object_class); \
+  mrb_define_class_method(mrb, serial##Class, "available", mrb_##serial##_available, ARGS_NONE()); \
+  mrb_define_class_method(mrb, serial##Class, "begin",mrb_##serial##_begin, ARGS_REQ(1)); \
+  mrb_define_class_method(mrb, serial##Class, "println", mrb_##serial##_println, ARGS_REQ(1)); \
+  mrb_define_class_method(mrb, serial##Class, "print", mrb_##serial##_print, ARGS_REQ(1)); 
+
 extern "C"
 void
 mruby_arduino_init_discoveryF4(mrb_state* mrb) {
 
-  RClass *serialClass = mrb_define_class(mrb, "Serial", mrb->object_class);
-  mrb_define_class_method(mrb, serialClass, "available", mrb_serial_available, ARGS_NONE());
-  mrb_define_class_method(mrb, serialClass, "begin",mrb_serial_begin, ARGS_REQ(1));
-  mrb_define_class_method(mrb, serialClass, "println", mrb_serial_println, ARGS_REQ(1));
+  MRUBY_ARDUINO_DEFINE_SERIAL(Serial2);
+  MRUBY_ARDUINO_DEFINE_SERIAL(Serial3);
 
   RClass *servoClass = mrb_define_class(mrb, "Servo", mrb->object_class);
   MRB_SET_INSTANCE_TT(servoClass, MRB_TT_DATA);
