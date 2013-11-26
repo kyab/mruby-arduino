@@ -15,7 +15,11 @@
 	#include <WProgram.h>
 #endif
 
+#if defined(__SAM3X8E__)  //Arduino IDE
 #include <Servo.h>
+#else
+#include <Servo/Servo.h>
+#endif
 
 mrb_value mrb_serial_available(mrb_state *mrb, mrb_value self){
   return mrb_fixnum_value(Serial.available());
