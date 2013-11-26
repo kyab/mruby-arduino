@@ -15,7 +15,7 @@
 	#include <WProgram.h>
 #endif
 
-#include <Servo/Servo.h>
+#include <Servo.h>
 
 mrb_value mrb_serial_available(mrb_state *mrb, mrb_value self){
   return mrb_fixnum_value(Serial.available());
