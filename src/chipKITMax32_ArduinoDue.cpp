@@ -36,7 +36,10 @@ mrb_value mrb_serial_begin(mrb_state *mrb, mrb_value self){
 mrb_value mrb_serial_println(mrb_state *mrb, mrb_value self){
   mrb_value s;
   mrb_get_args(mrb,"S", &s);
-  Serial.println(RSTRING_PTR(s));
+  for (int i = 0; i < RSTRING_LEN(s); i++){
+    Serial.print( RSTRING_PTR(s)[i] );
+  }
+  Serial.println("");
   return mrb_nil_value();
 }
 

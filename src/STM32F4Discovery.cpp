@@ -27,15 +27,20 @@
  \
   mrb_value mrb_##serial##_println(mrb_state *mrb, mrb_value self){ \
     mrb_value s;  \
-    mrb_get_args(mrb,"S", &s); \ 
-    serial.println(RSTRING_PTR(s)); \
+    mrb_get_args(mrb,"S", &s); \
+    for (int i = 0; i < RSTRING_LEN(s); i++){ \
+      serial.print( RSTRING_PTR(s)[i] ); \
+    } \
+    serial.println(""); \
     return mrb_nil_value();  \
   } \
   \
   mrb_value mrb_##serial##_print(mrb_state *mrb, mrb_value self){ \
     mrb_value s;  \
     mrb_get_args(mrb,"S", &s); \
-    serial.print(RSTRING_PTR(s)); \
+    for (int i = 0; i < RSTRING_LEN(s); i++){ \
+      serial.print( RSTRING_PTR(s)[i] ); \
+    } \
     return mrb_nil_value(); \
   } \
 
