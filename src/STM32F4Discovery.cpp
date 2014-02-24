@@ -1,13 +1,12 @@
+#include "mruby-arduino.h"
+#ifdef MRUBY_ARDUINO_BOARD_DISCOVERYF4
+
 #include <new>
 	
 #include "mruby.h"
 #include "mruby/class.h"
 #include "mruby/string.h"
 #include "mruby/data.h"
-
-#include "mruby-arduino.h"
-
-#ifdef MRUBY_ARDUINO_BOARD_DISCOVERYF4
 
 #include <WProgram.h>
 

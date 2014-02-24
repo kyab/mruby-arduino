@@ -1,3 +1,8 @@
+
+#if defined(ARDUINO) && (ARDUINO==153)
+#include <Wire.h>
+#endif
+
 #include <Servo.h>
 
 #ifdef MPIDE
@@ -100,10 +105,18 @@ void loop(){
 
 //required to link with mruby-arduino
 void __dummy(){
+#if defined(ARDUINO) && (ARDUINO==153)
+#else
   random(1,1);
+#endif
+
 #ifdef MPIDE
   tone(1,2,3);
 #endif
+
+#if defined(ARDUINO) && (ARDUINO==153)
+#else
   pulseIn(1,2,3);
   shiftOut(1,2,3,4);
+#endif
 }

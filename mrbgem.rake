@@ -1,13 +1,12 @@
 MRuby::Gem::Specification.new('mruby-arduino') do |spec|
 
-
 	spec.license = 'MIT'
  	spec.authors = 'kyab'
 
- 	if self.class.const_defined? :ARDUINO_PATH
- 		spec.cxx.include_paths << ["#{ARDUINO_PATH}/libraries/Servo/src", "#{ARDUINO_PATH}/libraries/Servo/arch/sam"]
- 	end
-
- 	#recommend to use with mruby/examples/targets/chipKitMax32.rb or ArduinoDue.rb
+ 	#recommend to use with build_config.rb based on:
+ 	# mruby/examples/targets/chipKitMax32.rb
+  # mruby/examples/targets/ArduinoDue.rb
+  # https://gist.github.com/kyab/9187447
+  # ... (sample build_config.rb for STM32F4Discovery here)
 
 end

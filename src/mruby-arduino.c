@@ -9,6 +9,8 @@
 	extern void mruby_arduino_init_chipKIT_or_Due(mrb_state *mrb);
 #elif defined(MRUBY_ARDUINO_BOARD_DISCOVERYF4)
 	extern void mruby_arduino_init_discoveryF4(mrb_state *mrb);
+#elif defined(MRUBY_ARDUINO_BOARD_GALILEO)
+	extern void mruby_arduino_init_galileo(mrb_state *mrb);
 #endif
 
 
@@ -20,6 +22,8 @@ mrb_mruby_arduino_gem_init(mrb_state* mrb)
 	mruby_arduino_init_chipKIT_or_Due(mrb);
 #elif defined(MRUBY_ARDUINO_BOARD_DISCOVERYF4)
 	mruby_arduino_init_discoveryF4(mrb);
+#elif defined(MRUBY_ARDUINO_BOARD_GALILEO)
+	mruby_arduino_init_galileo(mrb);
 #endif
 }
 

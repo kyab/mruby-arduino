@@ -11,7 +11,7 @@ class Blinker
 	include Arduino
 	attr_accessor :interval ,:pin
 	
-	def initialize(pin,interval_ms)
+	def initialize(pin, interval_ms)
 		Serial.println("Blinker initialized")
 		@pin = pin
 		@interval = interval_ms
