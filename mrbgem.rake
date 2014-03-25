@@ -2,6 +2,7 @@ MRuby::Gem::Specification.new('mruby-arduino') do |spec|
 
 	spec.license = 'MIT'
  	spec.authors = 'kyab'
+ 	spec.summary = 'Arduino API'
 
  	#recommend to use with build_config.rb based on:
  	# mruby/examples/targets/chipKitMax32.rb
