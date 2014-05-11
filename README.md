@@ -52,7 +52,7 @@ Re-launch MPIDE.
 ###1. Build mruby with mruby-arduino
 You should install Arduino 1.5.6-r2 from http://arduino.cc/en/Main/Software. Arduino 1.x can not used for Arduino Due.
 
-At first you should make cross-build setting for Arduino Due. Copy `/path/to/[mruby](https://github.com/mruby/mruby)/examples/targets/build_config_ArduinoDue.rb` to `/path/to/mruby/build_config.rb` (or any file specified by MRUBY_CONFIG environment variable).
+At first you should make cross-build setting for Arduino Due. Copy `/path/to/mruby/examples/targets/build_config_ArduinoDue.rb` to `/path/to/mruby/build_config.rb` (or any file specified by MRUBY_CONFIG environment variable).
 
 Then, open `build_config.rb` and add below line to include mruby-arduino. 
 ```ruby
