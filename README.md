@@ -205,7 +205,7 @@ All classes, functions, and constants are under module Arduino
 - Servo#write
 
 #Troubleshooting
-Measure issue will RAM(heap) shortage. If you can build and upload but nothing happens or freezed, disable almost all mrbgems from build_config.rb like below.
+Major issue you will face is RAM(heap) shortage. If you can build and upload but nothing happens or freezed, disable almost all mrbgems from build_config.rb like below.
 
 ```ruby
 ...
