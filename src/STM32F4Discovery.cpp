@@ -19,7 +19,7 @@
  \
   mrb_value mrb_##serial##_begin(mrb_state *mrb, mrb_value self){ \
     mrb_int speed = 0;  \
-    int n = mrb_get_args(mrb,"i",&speed); \
+    mrb_get_args(mrb,"i",&speed); \
     serial.begin(speed);  \
     return mrb_nil_value(); \
   } \
@@ -66,7 +66,7 @@ mrb_value mrb_servo_attach(mrb_state *mrb, mrb_value self){
   Servo *servo = (Servo *)mrb_get_datatype(mrb, self, &mrb_servo_type);
   
   mrb_int pin = 0;
-  int n = mrb_get_args(mrb, "i", &pin);
+  mrb_get_args(mrb, "i", &pin);
   servo->attach(pin);
   return mrb_nil_value();
 }
@@ -74,7 +74,7 @@ mrb_value mrb_servo_attach(mrb_state *mrb, mrb_value self){
 mrb_value mrb_servo_write(mrb_state *mrb, mrb_value self){
   Servo *servo = (Servo *)mrb_get_datatype(mrb, self, &mrb_servo_type);
   mrb_int angle = 0;
-  int n = mrb_get_args(mrb, "i", &angle);
+  mrb_get_args(mrb, "i", &angle);
   servo->write(angle);
   return mrb_nil_value();
 }
@@ -88,21 +88,21 @@ mrb_value mrb_servo_detach(mrb_state *mrb, mrb_value self){
 
 mrb_value mrb_arduino_pinMode(mrb_state *mrb, mrb_value self){
   mrb_int pin, mode;
-  int n = mrb_get_args(mrb, "ii", &pin, &mode);
+  mrb_get_args(mrb, "ii", &pin, &mode);
   pinMode(pin, (WiringPinMode)mode);
   return mrb_nil_value();
 }
 
 mrb_value mrb_arduino_digitalWrite(mrb_state *mrb, mrb_value self){
   mrb_int pin, value;
-  int n = mrb_get_args(mrb, "ii", &pin, &value);
+  mrb_get_args(mrb, "ii", &pin, &value);
   digitalWrite(pin, value);
   return mrb_nil_value();
 }
 
 mrb_value mrb_arduino_digitalRead(mrb_state *mrb, mrb_value self){
   mrb_int pin;
-  int n = mrb_get_args(mrb, "i", &pin);
+  mrb_get_args(mrb, "i", &pin);
   int val = digitalRead(pin);
   return mrb_fixnum_value(val);
 }
@@ -110,21 +110,21 @@ mrb_value mrb_arduino_digitalRead(mrb_state *mrb, mrb_value self){
 
 mrb_value mrb_arduino_analogWrite(mrb_state *mrb, mrb_value self){
   mrb_int pin, value;
-  int n = mrb_get_args(mrb, "ii", &pin, &value);
+  mrb_get_args(mrb, "ii", &pin, &value);
   analogWrite(pin, value);
   return mrb_nil_value();
 }
 
 mrb_value mrb_arduino_analogRead(mrb_state *mrb, mrb_value self){
   mrb_int pin;
-  int n = mrb_get_args(mrb, "i", &pin);
+  mrb_get_args(mrb, "i", &pin);
   int val = analogRead(pin);
   return mrb_fixnum_value(val);
 }
 
 mrb_value mrb_arduino_shiftOut(mrb_state *mrb, mrb_value self){
   mrb_int dataPin, clockPin, bitOrder, value;
-  int n = mrb_get_args(mrb, "iiii", &dataPin, &clockPin, &bitOrder, &value);
+  mrb_get_args(mrb, "iiii", &dataPin, &clockPin, &bitOrder, &value);
   shiftOut(dataPin, clockPin, bitOrder, (byte)value);
   return mrb_nil_value();
 }
@@ -140,14 +140,14 @@ mrb_value mrb_arduino_micros(mrb_state *mrb, mrb_value self){
 
 mrb_value mrb_arduino_delay(mrb_state *mrb, mrb_value self){
   mrb_int ms;
-  int n = mrb_get_args(mrb, "i", &ms);
+  mrb_get_args(mrb, "i", &ms);
   delay(ms);
   return mrb_nil_value();
 }
 
 mrb_value mrb_arduino_delayMicroseconds(mrb_state *mrb, mrb_value self){
   mrb_int us;
-  int n = mrb_get_args(mrb, "i", &us);
+  mrb_get_args(mrb, "i", &us);
   delayMicroseconds(us);
   return mrb_nil_value();
 }
@@ -155,21 +155,21 @@ mrb_value mrb_arduino_delayMicroseconds(mrb_state *mrb, mrb_value self){
 
 mrb_value mrb_arduino_map(mrb_state *mrb, mrb_value self){
   mrb_int value, fromLow, fromHigh, toLow, toHigh;
-  int n = mrb_get_args(mrb, "iiiii", &value, &fromLow, &fromHigh, &toLow, &toHigh);
+  mrb_get_args(mrb, "iiiii", &value, &fromLow, &fromHigh, &toLow, &toHigh);
   mrb_int ret = map(value, fromLow, fromHigh, toLow, toHigh);
   return mrb_fixnum_value(ret);
 }
 
 mrb_value mrb_arduino_randomSeed(mrb_state *mrb, mrb_value self){
   mrb_int seed;
-  int n = mrb_get_args(mrb, "i", &seed);
+  mrb_get_args(mrb, "i", &seed);
   randomSeed(seed);
   return mrb_nil_value();
 }
 
 mrb_value mrb_arduino_random(mrb_state *mrb, mrb_value self){
   mrb_int arg1, arg2;
-  int n = mrb_get_args(mrb, "i|i", &arg1, &arg2 );
+  mrb_int n = mrb_get_args(mrb, "i|i", &arg1, &arg2 );
   if (n == 1){
     return mrb_fixnum_value(random(arg1));
   }else{
